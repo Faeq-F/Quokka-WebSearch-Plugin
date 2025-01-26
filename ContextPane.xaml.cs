@@ -1,7 +1,9 @@
-﻿using Microsoft.Web.WebView2.Wpf;
+﻿using Extender;
 using Quokka;
 using Quokka.ListItems;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Plugin_WebSearch {
 
@@ -16,9 +18,20 @@ namespace Plugin_WebSearch {
     public ContextPane() {
       InitializeComponent();
       Item = (SearchItem) ( (SearchWindow) Application.Current.MainWindow ).SelectedItem!;
-      WebView2 WebBrowser = new();
-      Pane.Child = WebBrowser;
-      WebBrowser.Source = new Uri(Item.url);
+      var className = "ChromiumWebBrowser";
+      var typeExtender = new TypeExtender(className);
+      var returnedType = typeExtender.FetchType();
+      //var obj = Activator.CreateInstance(returnedType);
+      Control obj = (Control) WebSearch.CEFsharp!.CreateInstance("ChromiumWebBrowser");
+      Pane.Child = obj;
+      //PropertyInfo prop = returnedType.GetProperty("Address");
+      //prop.SetValue(obj, new Uri(Item.url), null);
+
+
+      PropertyInfo prop = obj.GetType().GetProperty("Address", BindingFlags.Public | BindingFlags.Instance);
+      if (null != prop && prop.CanWrite) {
+        prop.SetValue(obj, Item.url, null);
+      }
     }
   }
 }

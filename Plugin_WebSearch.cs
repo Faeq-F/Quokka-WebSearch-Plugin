@@ -1,6 +1,6 @@
-
 using Quokka.ListItems;
 using Quokka.PluginArch;
+using System.Reflection;
 
 namespace Plugin_WebSearch {
 
@@ -24,6 +24,20 @@ namespace Plugin_WebSearch {
       items.Add(new SearchItem(query));
       return items;
     }
-  }
 
+
+    internal static Assembly? CEFsharp;
+
+
+    /// <summary>
+    /// <inheritdoc />
+    /// Loads the WebView assembly.
+    /// </summary>
+    public override void OnAppStartup() {
+      CEFsharp = Assembly.LoadFrom(
+          Environment.CurrentDirectory
+              + "\\PlugBoard\\Plugin_WebSearch\\Plugin\\CefSharp.Wpf.dll"
+      );
+    }
+  }
 }
