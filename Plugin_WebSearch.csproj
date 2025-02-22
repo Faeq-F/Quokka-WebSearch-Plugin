@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net4.8-windows</TargetFramework>
@@ -29,6 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ContentWithTargetPath Include="settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>settings.json</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
     <ContentWithTargetPath Include="Icons By Icons8.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>Icons By Icons8.txt</TargetPath>
@@ -39,10 +46,4 @@
       <TargetPath>web.png</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf" Version="131.3.50" />
-  </ItemGroup>
-
-
 </Project>
