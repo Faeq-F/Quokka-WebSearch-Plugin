@@ -1,5 +1,6 @@
 ﻿using Quokka;
 using Quokka.ListItems;
+using Quokka.PluginArch;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 
@@ -16,10 +17,12 @@ namespace Plugin_WebSearch {
       } else {
         this.url = searchEngine + query;
       }
-      this.Name = $"Search for '{query}'";
-      this.Description = $"Hit enter to open the search in your browser";
-      this.Icon = new BitmapImage(new Uri(
-          Environment.CurrentDirectory + "\\PlugBoard\\Plugin_WebSearch\\Plugin\\web.png"));
+      Name = $"Search for '{query}'";
+      Description = $"Hit enter to open the search in your browser";
+      UiDispatcher.BeginInvoke(() => {
+        Icon = new BitmapImage(new Uri(
+            Environment.CurrentDirectory + "\\PlugBoard\\Plugin_WebSearch\\Plugin\\web.png"));
+      });
     }
 
     public override void Execute() {
