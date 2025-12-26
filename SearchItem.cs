@@ -2,30 +2,36 @@
 using Quokka.ListItems;
 using Quokka.PluginArch;
 using System.Diagnostics;
-using System.Windows.Media.Imaging;
 
-namespace Plugin_WebSearch {
-  class SearchItem : ListItem {
+namespace PluginWebSearch
+{
+  class SearchItem : ListItem
+  {
 
     public string url;
     public string browser;
 
-    public SearchItem(String query, String browser, String searchEngine) {
+    public SearchItem(String query, String browser, String searchEngine)
+    {
       this.browser = browser;
-      if (query.StartsWith("https://") || query.StartsWith("http://") || query.StartsWith("www.")) {
+      if (query.StartsWith("https://", StringComparison.Ordinal) || query.StartsWith("http://", StringComparison.Ordinal) || 
+        query.StartsWith("www.", StringComparison.Ordinal))
+      {
         this.url = query;
-      } else {
+      }
+      else
+      {
         this.url = searchEngine + query;
       }
       Name = $"Search for '{query}'";
       Description = $"Hit enter to open the search in your browser";
-      UiDispatcher.BeginInvoke(() => {
-        Icon = new BitmapImage(new Uri(
-            Environment.CurrentDirectory + "\\PlugBoard\\Plugin_WebSearch\\Plugin\\web.png"));
-      });
+      Icon = IconCache.GetOrAdd(
+        Environment.CurrentDirectory + "\\PlugBoard\\PluginWebSearch\\Plugin\\web.png"
+      );
     }
 
-    public override void Execute() {
+    public override void Execute()
+    {
       //open search in users browser
       Process.Start(browser + url);
       App.Current.MainWindow.Close();

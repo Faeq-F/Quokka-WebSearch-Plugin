@@ -1,8 +1,10 @@
-﻿namespace Plugin_WebSearch {
+﻿namespace PluginWebSearch
+{
   /// <summary>
   /// All plugin specific settings
   /// </summary>
-  public class Settings {
+  public class Settings
+  {
     /// <summary>
     /// The command signifier used to obtain a search item (defaults to "? ")
     ///</summary>
